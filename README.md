@@ -21,28 +21,21 @@ This is a simple DOS attack api, built to help test server load.
 ```
 curl -H "Content-Type: application/json" -d '{"url":"http://localhost:8888"}' http://localhost:8080/attack
 ```
-### /attacks
 
+### /attacks
 ```
 curl http://localhost:8080/attacks
 ```
 
-
 ###  /attacks/{attackID}
-
 ```
 curl http://localhost:8080/attacks/10
 ```
 
-
-
 ###  /stop
-
 ```
 curl -X DELETE -d '{"ID": 10}' http://localhost:8080/stop
 ```
-
-
 
 ## Wishlist
 - [ ]
