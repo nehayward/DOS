@@ -12,7 +12,7 @@ This is a simple DOS attack api, built to help test server load.
 |:---:|:---:|:---:|
 |[/attack](#attack) | POST | Create a new attack, pass URL |
 |[/attacks](#attacks)| GET | List current attacks |
-|[/attacks/{attack-ID}](#attacksattackID)| GET | Look up attack by ID |
+|[/attacks/{attack-ID}](#attacksattackid)| GET | Look up attack by ID |
 |[/stop](#stop)| DELETE | Stop an attack |
 
 ----------------------------
