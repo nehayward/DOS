@@ -10,10 +10,10 @@ This is a simple DOS attack api, built to help test server load.
 ## Endpoints
 |URL | HTTP Method | Functionality |
 |:---:|:---:|:---:|
-|[/attack](###/attack) | POST | Create a new attack, pass URL |
-|[/attacks](###/attacks)| GET | List current attacks |
-|[/attacks/{attack-ID}](###/attacks)| GET | Look up attack by ID |
-|[/stop](###/stop)| DELETE | Stop an attack |
+|[/attack](#attack) | POST | Create a new attack, pass URL |
+|[/attacks](#attacks)| GET | List current attacks |
+|[/attacks/{attack-ID}](#attacksattackID)| GET | Look up attack by ID |
+|[/stop](#stop)| DELETE | Stop an attack |
 
 ----------------------------
 
