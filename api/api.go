@@ -3,9 +3,11 @@ package api
 import (
 	"log"
 	"net/http"
+
+	"github.com/nehayward/dos/core"
 )
 
-var attacks Attacks
+var attacks core.Attacks
 
 func Start() {
 	router := NewRouter()
