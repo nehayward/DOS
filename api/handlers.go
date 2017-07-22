@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -74,8 +75,10 @@ func AttackStop(w http.ResponseWriter, r *http.Request) {
 
 	a := attacks.FindAttack(attack.ID)
 	if a.Exists() {
-
 		a.Worker.StopWorker()
+		fmt.Println(attacks)
+		attacks.RemoveAttack(attack.ID)
+		fmt.Println(attacks)
 		response := Response{Message: "Stopping attack!", ID: attack.ID}
 		sendJSON(w, response, http.StatusAccepted)
 		return
