@@ -1,5 +1,15 @@
 language: go
 
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t dos .
+  - docker run -d -p 8080:8080 dos:0.1
+  - docker ps -a
+
 go:
   - 1.7.x
   - master
