@@ -1,0 +1,10 @@
+language: go
+
+go:
+  - 1.7.x
+  - master
+
+script:
+- go test github.com/nehayward/dos/core \
+  github.com/nehayward/dos/api -v
+- go run main.go
