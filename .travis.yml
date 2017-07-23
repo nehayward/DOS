@@ -2,8 +2,6 @@ jobs:
   include:
     - stage: Test go build
       language: go
-      go:
-        - master
       install:
         - go get github.com/gorilla/mux
       script: go test github.com/nehayward/DOS/core -v
