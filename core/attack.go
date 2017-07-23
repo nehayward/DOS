@@ -12,7 +12,7 @@ func (a *Attack) NewAttack() {
 		a.Method = http.MethodGet
 	}
 	if a.Requests == 0 {
-		a.Requests = 100
+		a.Requests = 1000
 	}
 
 	a.Worker.NewWorker()

@@ -51,12 +51,14 @@ curl http://localhost:8080/attacks/10
 curl -X DELETE -d '{"ID": 10}' http://localhost:8080/stop
 ```
 
-## Wishlist
+## TODO
 - [ ]
+
+## Testing
+`go test github.com/nehayward/dos/core github.com/nehayward/dos/api -v`
 
 ## Requirements
 * [Go](https://github.com/golang/example)
-
 
 ### License
 This work is published under the MIT license.

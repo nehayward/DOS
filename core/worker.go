@@ -67,7 +67,6 @@ func (w *Worker) request(i *Info, url string) {
 func (w *Worker) frequency(wait time.Duration) bool {
 	select {
 	case <-w.Channel:
-		//fmt.Println("Kill all requests")
 		return true
 	default:
 		time.Sleep(wait * time.Millisecond)

@@ -26,8 +26,8 @@ func AttackShow(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	attack := attacks.FindAttack(attackID)
-	if attack.Exists() {
+	attack, exists, _ := attacks.FindAttack(attackID)
+	if exists {
 		sendJSON(w, attack, http.StatusOK)
 		return
 	}
@@ -57,7 +57,7 @@ func AttackCreate(w http.ResponseWriter, r *http.Request) {
 		attack.ID = attacks.GetNewID()
 		attack.NewAttack()
 
-		attacks = append(attacks, attack)
+		attacks.AddAttack(attack)
 		message := Response{Message: "Started attack!", URL: attack.URL, ID: attack.ID}
 		sendJSON(w, message, http.StatusCreated)
 	}
@@ -73,8 +73,8 @@ func AttackStop(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	a := attacks.FindAttack(attack.ID)
-	if a.Exists() {
+	a, exists, _ := attacks.FindAttack(attack.ID)
+	if exists {
 		a.Worker.StopWorker()
 		fmt.Println(attacks)
 		attacks.RemoveAttack(attack.ID)

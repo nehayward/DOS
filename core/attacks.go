@@ -1,18 +1,26 @@
 package core
 
 // FindAttack checks attack list based on ID
-func (a Attacks) FindAttack(id int) Attack {
-	for _, attack := range a {
+func (a Attacks) FindAttack(id int) (Attack, bool, int) {
+	for index, attack := range a {
 		if attack.ID == id {
-			return attack
+			return attack, true, index
 		}
 	}
-	return Attack{}
+	return Attack{}, false, -0
 }
 
 // RemoveAttack removes an attack after being stopped
 func (a *Attacks) RemoveAttack(id int) {
-	*a = (*a)[:id-1]
+	_, exists, index := a.FindAttack(id)
+	if exists {
+		*a = append((*a)[:index], (*a)[index+1:]...)
+	}
+}
+
+// AddAttack removes an attack after being stopped
+func (a *Attacks) AddAttack(attack Attack) {
+	*a = append((*a), attack)
 }
 
 // GetNewID generates unique id for an attack
