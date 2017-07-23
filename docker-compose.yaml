@@ -1,0 +1,7 @@
+version: '3'
+services:
+  dos:
+    build: ./
+    image: dos
+    ports:
+      - "8080"

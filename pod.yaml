@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dos-server
+spec:
+  containers:
+  - name: dos
+    image: dos:0.1
+    imagePullPolicy: Never
+    ports:
+      - containerPort: 8080

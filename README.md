@@ -7,12 +7,17 @@ This is a simple DOS attack api, built to help test server load.
 
 
 ## Installation
-**Minimum Go version:** Go 1.6
+**Minimum Go version:** Go 1.7
 
 Use [`go get`](https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies) to install and update:
 
 ```sh
+$ go get github.com/gorilla/mux
 $ go get -u github.com/nehayward/dos/
+```
+#### Alternative
+```sh
+./start.sh
 ```
 
 ## Usage
@@ -20,6 +25,31 @@ $ go get -u github.com/nehayward/dos/
 $ go install
 $ dos
 ```
+
+## Docker Installation
+1. Install [Docker](https://www.docker.com/).
+2. Build Container and Run
+
+```sh
+docker build -t dos .
+docker run -d -p 8080:8080 dos:0.1
+```
+
+## Minikube Getting Started
+1. Install [minikube](https://github.com/kubernetes/minikube) on Mac on Linux
+### macOS
+```shell
+brew cask install minikube
+```
+### Linux
+```shell
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```
+2. Ensure minikube is running with `minikube status`
+
+3. `kubectl create -f pod.yaml`
+
+
 
 ## Endpoints
 |URL | HTTP Method | Functionality |
@@ -52,7 +82,7 @@ curl -X DELETE -d '{"ID": 10}' http://localhost:8080/stop
 ```
 
 ## TODO
-- [ ]
+- [ ] Add Authentication
 
 ## Testing
 `go test github.com/nehayward/dos/core github.com/nehayward/dos/api -v`
