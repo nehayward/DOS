@@ -4,5 +4,7 @@ go:
   - 1.7.x
   - master
 
-script:
-- ./start.sh
+install:
+  - go get github.com/gorilla/mux
+
+script: go test github.com/nehayward/dos/core github.com/nehayward/dos/api -v

@@ -85,7 +85,7 @@ curl -X DELETE -d '{"ID": 10}' http://localhost:8080/stop
 - [ ] Add Authentication
 
 ## Testing
-`go test github.com/nehayward/dos/core github.com/nehayward/dos/api -v`
+`go test github.com/nehayward/dos/core -v`
 
 ## Requirements
 * [Go](https://github.com/golang/example)
