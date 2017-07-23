@@ -1,3 +1,8 @@
+language: go
+go:
+  - 1.7.x
+  - master
+
 jobs:
   include:
     - stage: Build DOS Docker Image
@@ -5,11 +10,7 @@ jobs:
       - docker build -t dos .
       - docker run -d -p 8080:8080 dos
       - docker ps -a
-    - stage: Test DOS Api
-      language: go
-      go:
-        - 1.7.x
-        - master
+    - stage: Test DOS api
       install:
         - go get github.com/gorilla/mux
       script: go test github.com/nehayward/DOS/core -v
