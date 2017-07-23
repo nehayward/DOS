@@ -5,6 +5,4 @@ go:
   - master
 
 script:
-- go test github.com/nehayward/dos/core \
-  github.com/nehayward/dos/api -v
-- go run main.go
+- ./start.sh
