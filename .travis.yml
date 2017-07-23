@@ -1,13 +1,5 @@
 jobs:
   include:
-    - stage: Build DOS Docker Image
-      script:
-      - docker build -t dos .
-      - docker run -d -p 8080:8080 dos
-      - docker ps -a
-    - stage: Test dos attack
-      script:
-      - curl -H "Content-Type: application/json" -d '{"url":"https://httpbin.org/get"}' http://localhost:8080/attack
     - stage: Test go build
       language: go
       go:
@@ -15,3 +7,11 @@ jobs:
       install:
         - go get github.com/gorilla/mux
       script: go test github.com/nehayward/DOS/core -v
+    - stage: Build DOS Docker Image
+      script:
+      - docker build -t dos .
+      - docker run -d -p 8080:8080 dos
+      - docker ps -a
+    - stage: Test dos attack
+      script:
+      - "curl -H 'Content-Type: application/json' -d '{\"url\":\"https://httpbin.org/get\"}' http://localhost:8080/attack"
