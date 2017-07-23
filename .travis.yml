@@ -4,14 +4,17 @@ jobs:
       language: go
       install:
         - go get github.com/gorilla/mux
-      script: go test github.com/nehayward/DOS/core -v
+      script:
+        - go test github.com/nehayward/DOS/core -v
 
     - stage: Build dos
       language: go
-      script: go build main.go
+      script:
+        - go test github.com/nehayward/DOS/core -v
+        - go build main.go
 
     - stage: Build DOS Docker Image
       script:
-      - docker build -t dos .
-      - docker run -d -p 8080:8080 dos
-      - docker ps -a
+        - docker build -t dos .
+        - docker run -d -p 8080:8080 dos
+        - docker ps -a
