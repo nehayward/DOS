@@ -7,4 +7,4 @@ go:
 install:
   - go get github.com/gorilla/mux
 
-script: go test github.com/nehayward/dos/core github.com/nehayward/dos/api -v
+script: go test github.com/nehayward/dos/core -v
