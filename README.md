@@ -1,7 +1,7 @@
 # DOS API
 This is a simple DOS attack api, built to help test server load.
 
-![GoDoc]()
+[![Build Status](https://travis-ci.com/nehayward/DOS.svg?token=VaqoffAmWMpp9yR53aWy&branch=master)](https://travis-ci.com/nehayward/DOS)
 ![Version](https://img.shields.io/badge/version-0.1-brightgreen.svg)
 
 
