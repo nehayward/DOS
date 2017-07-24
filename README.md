@@ -22,7 +22,7 @@ $ go get -u github.com/nehayward/dos/
 
 ## Usage
 ```sh
-$ go install
+$ go install github.com/nehayward/dos/
 $ dos
 ```
 
