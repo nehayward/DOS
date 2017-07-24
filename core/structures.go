@@ -23,6 +23,7 @@ type Info struct {
 
 // Worker contains unique Channel and ID for each attack
 type Worker struct {
-	Channel chan bool
-	ID      int64
+	MaxRequests chan bool
+	Channel     chan bool
+	ID          int64
 }
