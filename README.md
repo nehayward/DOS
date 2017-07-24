@@ -1,4 +1,6 @@
-# DOS API
+
+![](DOS.png)
+
 This is a simple DOS attack api, built to help test server load.
 
 [![Build Status](https://travis-ci.com/nehayward/DOS.svg?token=VaqoffAmWMpp9yR53aWy&branch=master)](https://travis-ci.com/nehayward/DOS)
