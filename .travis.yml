@@ -7,14 +7,6 @@ jobs:
       script:
         - go test github.com/nehayward/DOS/core -v
 
-    - stage: Build dos
-      language: go
-      install:
-        - go get github.com/gorilla/mux
-      script:
-        - go test github.com/nehayward/DOS/core -v
-        - go install github.com/nehayward/DOS
-
     - stage: Build DOS Docker Image
       script:
         - docker build -t dos .
