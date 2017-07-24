@@ -13,7 +13,7 @@ jobs:
         - go get github.com/gorilla/mux
       script:
         - go test github.com/nehayward/DOS/core -v
-        - go build github.com/nehayward/DOS/core/main.go
+        - go install github.com/nehayward/DOS
 
     - stage: Build DOS Docker Image
       script:
