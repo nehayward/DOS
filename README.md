@@ -5,6 +5,7 @@ This is a simple DOS attack api, built to help test server load.
 
 [![Build Status](https://travis-ci.com/nehayward/DOS.svg?token=VaqoffAmWMpp9yR53aWy&branch=master)](https://travis-ci.com/nehayward/DOS)
 ![Version](https://img.shields.io/badge/version-0.1-brightgreen.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nehayward/DOS)](https://goreportcard.com/report/github.com/nehayward/DOS)
 
 [![Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/72954/dos/6fePLSb)
 
